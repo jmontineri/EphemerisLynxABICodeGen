@@ -22,6 +22,11 @@ namespace <%= locals.namespace ? namespace : 'DefaultNamespace' %>
 
         private Contract contract;
 
+        public string GetAddress()
+        {
+            return contract.Address;
+        }
+
         public <%= capitalizeFirstLetter(getContractName()) %>Service(Web3 web3, string address)
         {
             this.web3 = web3;
