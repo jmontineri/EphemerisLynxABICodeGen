@@ -276,8 +276,8 @@ _%>
     <%_ if(item.type === 'function' && item.constant === false) { _%>
         public async Task<string> <%= capitalizeFirstLetter(item.name) %>Async(<%- generateFunctionTransactionInputParameters(item) -%> HexBigInteger gasPrice = null, HexBigInteger valueAmount = null) {
             var function = GetFunction<%=capitalizeFirstLetter(item.name)%>();
-	        string data = function.GetData(<%- generateFunctionParameters(item) -%>);
-	        return await _transactionService.SignAndSendTransaction(data, contract.Address, valueAmount, gasPrice);
+                string data = function.GetData(<%- generateFunctionParameters(item) -%>);
+                return await _transactionService.SignAndSendTransaction(data, contract.Address, valueAmount, gasPrice);
         }
 <%_ } }
 _%>
