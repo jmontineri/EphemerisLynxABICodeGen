@@ -15,11 +15,11 @@ namespace <%= locals.namespace ? namespace : 'DefaultNamespace' %>
 
         public static string BYTE_CODE = "0x<%-bytecode%>";
 
-        public static async Task<string> DeployContractAsync(Web3 web3, string keyFrom, <%-generateConstructorInputParameters(abi)%> HexBigInteger gas = null, HexBigInteger gasPrice = null, HexBigInteger valueAmount = null)
+        public static async Task<string> DeployContractAsync(Web3 web3, string keyFrom, <%-generateConstructorInputParameters(abi)%> HexBigInteger gasPrice = null, HexBigInteger valueAmount = null)
         {
             string data = web3.Eth.DeployContract.GetData(BYTE_CODE, ABI <%-generateConstructorParameters(abi)%>);
             TransactionService transactionService = new TransactionService(keyFrom, web3);
-            return await transactionService.SignAndSendTransaction(data, "", new HexBigInteger(0), gasPrice, gas);
+            return await transactionService.SignAndSendTransaction(data, "", new HexBigInteger(0), gasPrice);
         }
 
         private Contract contract;
@@ -274,10 +274,10 @@ _%>
 _%>
 <%_ function generateFunctionTransaction(item) { _%>
     <%_ if(item.type === 'function' && item.constant === false) { _%>
-        public async Task<string> <%= capitalizeFirstLetter(item.name) %>Async(<%- generateFunctionTransactionInputParameters(item) -%> HexBigInteger gas = null, HexBigInteger gasPrice = null, HexBigInteger valueAmount = null) {
+        public async Task<string> <%= capitalizeFirstLetter(item.name) %>Async(<%- generateFunctionTransactionInputParameters(item) -%> HexBigInteger gasPrice = null, HexBigInteger valueAmount = null) {
             var function = GetFunction<%=capitalizeFirstLetter(item.name)%>();
-	        string data = function.GetData(<%- generateFunctionParameters(item) -%>);
-	        return await _transactionService.SignAndSendTransaction(data, contract.Address, valueAmount, gasPrice, gas);
+                string data = function.GetData(<%- generateFunctionParameters(item) -%>);
+                return await _transactionService.SignAndSendTransaction(data, contract.Address, valueAmount, gasPrice);
         }
 <%_ } }
 _%>
