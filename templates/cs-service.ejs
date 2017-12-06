@@ -259,8 +259,8 @@ _%>
 <%_ function generateFunctionCall(item) { _%>
     <%_ if(item.type === 'function' && (item.outputs !=- null && item.outputs.length === 1)) { _%>
         public Task<%- getGenericReturnType(item) -%> <%= capitalizeFirstLetter(item.name) %>AsyncCall(<%- generateFunctionInputParameters(item) -%>) {
-            var function = GetFunction<%=capitalizeFirstLetter(item.name)%>();
-            try{
+            try{ 
+                var function = GetFunction<%=capitalizeFirstLetter(item.name)%>();
                 return function.CallAsync<%- getGenericReturnType(item) -%>(<%- generateFunctionParameters(item) -%>);
             }catch(Exception e){
                 throw new CallFailed(e);
